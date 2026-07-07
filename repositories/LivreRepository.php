@@ -10,7 +10,7 @@
 
         public function __construct(PDO $pdo)
         {
-            $this->$pdo = $pdo;
+            $this->pdo = $pdo;
         }
 
         public function findAll():array
@@ -31,15 +31,26 @@
             $stmt = $this->pdo->prepare("SELECT * FROM livres WHERE categorie_id = :categorie_id;");
             $stmt->execute([":categorie_id" => $categorieId]);
 
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function findByMotCleAndCategorie(int $categorieId, string $motcle):array
+        {
+            $stmt = $this->pdo->prepare("SELECT * FROM livres WHERE categorie_id = :categorie_id AND titre LIKE :titre;");
+            $stmt->execute([
+                ":categorie_id" => $categorieId,
+                ":titre" => "%$motcle%"
+            ]);
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         public function findByMotCle(string $motcle):array
         {
             $stmt = $this->pdo->prepare("SELECT * FROM livres WHERE titre LIKE :titre OR auteur LIKE :auteur;");
             $stmt->execute([
-                ":titre" => $motcle,
-                ":auteur" => $motcle
+                ":titre" => "%$motcle%",
+                ":auteur" => "%$motcle%"
             ]);
 
             return $stmt->fetchAll(PDO::FETCH_ASSOC);

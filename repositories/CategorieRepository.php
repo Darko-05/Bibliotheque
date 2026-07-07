@@ -51,6 +51,14 @@
             return $stmt->rowCount() > 0;
         }
 
+        public function determinerCategorie(int $idCategorie):string
+        {
+            $stmt = $this->pdo->prepare("SELECT nom FROM categories WHERE id = :id;");
+            $stmt->execute([":id" => $idCategorie]);
+
+            return $stmt->fetchColumn();
+        }
+
         public function delete(int $id):bool
         {
             $stmt = $this->pdo->prepare("DELETE FROM categories WHERE id = :id;");
