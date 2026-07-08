@@ -23,10 +23,12 @@
 
                 $dateInscription = date("Y-m-d");
 
+                $passwordHash = password_hash($mot_de_passe, PASSWORD_DEFAULT);
+
                 $donnees = [
                     "nom" => $nom,
                     "email" => $email,
-                    "mot_de_passe" => $mot_de_passe,
+                    "mot_de_passe" => $passwordHash,
                     "role" => "membre",
                     "statut" => "actif",
                     "date_inscription" => $dateInscription
