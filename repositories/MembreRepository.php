@@ -52,6 +52,28 @@
             return $this->pdo->lastInsertId();
         }
 
+        public function updateEmail(string $email, int $membreId):bool
+        {
+            $stmt = $this->pdo->prepare("UPDATE utilisateurs SET email = :email WHERE id = :id;");
+            $stmt->execute([
+                ":email" => $email,
+                ":id" => $membreId
+            ]);
+
+            return $stmt->rowCount() > 0;
+        }
+
+        public function updateName(string $nom, int $membreId):bool
+        {
+            $stmt = $this->pdo->prepare("UPDATE utilisateurs SET nom = :nom WHERE id = :id;");
+            $stmt->execute([
+                ":nom" => $nom,
+                ":id" => $membreId
+            ]);
+
+            return $stmt->rowCount() > 0;
+        }
+
         public function updateStatut(int $id, string $statut):bool
         {
             $stmt = $this->pdo->prepare("UPDATE utilisateurs SET statut = :statut WHERE id = :id");

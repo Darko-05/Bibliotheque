@@ -17,12 +17,12 @@
         {
             $stmt = $this->pdo->prepare("INSERT INTO emprunts (livre_id, membre_id, date_emprunt, date_retour_prevue, date_retour_effective, statut) VALUES (:livre_id, :membre_id, :date_emprunt, :date_retour_prevue, :date_retour_effective, :statut);");
             $stmt->execute([
-                ":nom" => $donnees["livre_id"],
-                ":email" => $donnees["membre_id"],
-                ":mot_de_passe" => password_hash($donnees["date_emprunt"], PASSWORD_DEFAULT),
-                ":role" => $donnees["date_retour_prevue"],
-                ":statut" => $donnees["date_retour_effective"],
-                ":date_inscription" => $donnees["statut"]
+                ":livre_id" => $donnees["livre_id"],
+                ":membre_id" => $donnees["membre_id"],
+                ":date_emprunt" => $donnees["date_emprunt"],
+                ":date_retour_prevue" => $donnees["date_retour_prevue"],
+                ":date_retour_effective" => $donnees["date_retour_effective"],
+                ":statut" => $donnees["statut"]
             ]);
 
             return $this->pdo->lastInsertId();
@@ -90,6 +90,60 @@
             JOIN utilisateurs u ON e.membre_id = u.id
             ORDER BY e.date_emprunt DESC;
             ")->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function findEmpruntsEnCoursByMembre(int $membreId):array
+        {
+            $stmt = $this->pdo->prepare("
+                SELECT 
+                e.id,
+                e.date_emprunt,
+                e.date_retour_prevue,
+                e.date_retour_effective,
+                e.statut,
+                l.titre AS livre_titre,
+                l.auteur AS livre_auteur,
+                u.nom AS membre_nom,
+                u.email AS membre_email
+            FROM emprunts e
+            JOIN livres l ON e.livre_id = l.id
+            JOIN utilisateurs u ON e.membre_id = u.id
+            WHERE e.statut = :statut AND membre_id = :membre_id
+            ORDER BY e.date_emprunt DESC;
+            ");
+            $stmt->execute([
+                ":statut" => "en_cours",
+                ":membre_id" => $membreId
+            ]);
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function findEmpruntsRetourneByMembre(int $membreId):array
+        {
+            $stmt = $this->pdo->prepare("
+                SELECT 
+                e.id,
+                e.date_emprunt,
+                e.date_retour_prevue,
+                e.date_retour_effective,
+                e.statut,
+                l.titre AS livre_titre,
+                l.auteur AS livre_auteur,
+                u.nom AS membre_nom,
+                u.email AS membre_email
+            FROM emprunts e
+            JOIN livres l ON e.livre_id = l.id
+            JOIN utilisateurs u ON e.membre_id = u.id
+            WHERE e.statut = :statut AND membre_id = :membre_id
+            ORDER BY e.date_emprunt DESC;
+            ");
+            $stmt->execute([
+                ":statut" => "retourne",
+                ":membre_id" => $membreId
+            ]);
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         public function findEnRetard():array

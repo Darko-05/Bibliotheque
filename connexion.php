@@ -25,6 +25,7 @@
                     if (!isset($_SESSION["utilisateur"])) {
 
                         $_SESSION["utilisateur"] = [
+                            "id" => $findEmail["id"],
                             "nom" => $findEmail["nom"],
                             "email" => $email,
                             "mot_de_passe" => $mot_de_passe,
@@ -74,6 +75,18 @@
             }
 
         }
+
+    }
+
+    if (isset($_SESSION["erreur"])) {
+
+        echo "<div style='position: absolute !important; left: 50% !important; transform: translateX(-50%) !important; top: 35px !important; max-width: 550px !important; width: 90% !important; box-sizing: border-box !important;'>
+            <div class='border-2 border-black bg-[#FF6B6B] p-4 font-bold uppercase text-sm tracking-tight shadow-[4px_4px_0_0_rgba(0,0,0,1)]'>
+                {$_SESSION['erreur']}
+            </div>
+        </div>";
+
+        unset($_SESSION["erreur"]);
 
     }
 
