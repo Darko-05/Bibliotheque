@@ -50,6 +50,14 @@
             return (int) $stmt->fetchColumn();
         }
 
+        public function countEmpruntsEnCours():int
+        {
+            $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM emprunts WHERE statut = :statut;");
+            $stmt->execute([":statut" => "en_cours"]);
+
+            return (int) $stmt->fetchColumn();
+        }
+
         public function hasEmpruntEnRetard(int $membreId):bool
         {
             $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM emprunts WHERE membre_id = :membre_id AND statut = :statut;");
@@ -146,12 +154,12 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public function findEnRetard():array
+        public function countEmpruntsEnRetard():int
         {
-            $stmt = $this->pdo->prepare("SELECT * FROM emprunts WHERE statut = :statut;");
+            $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM emprunts WHERE statut = :statut;");
             $stmt->execute([":statut" => "en_retard"]);
 
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return (int) $stmt->fetchColumn();
         }
 
         public function marquerRetourne(int $id):bool

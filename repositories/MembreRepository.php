@@ -37,6 +37,14 @@
             return $this->pdo->query("SELECT * FROM utilisateurs;")->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        public function countMembresActif():int
+        {
+            $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM utilisateurs WHERE statut = :statut;");
+            $stmt->execute([":statut" => "actif"]);
+
+            return (int) $stmt->fetchColumn();
+        }
+
         public function create(array $donnees):int
         {
             $stmt = $this->pdo->prepare("INSERT INTO utilisateurs (nom, email, mot_de_passe, role, statut, date_inscription) VALUES (:nom, :email, :mot_de_passe, :role, :statut, :date_inscription);");

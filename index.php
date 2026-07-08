@@ -42,8 +42,6 @@
 
 ?>
 
-<link rel="stylesheet" href="/public/style.css">
-
 <?php require_once "includes/header.php"; ?>
 
 <main class="max-w-5xl mx-auto px-4">

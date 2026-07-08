@@ -28,9 +28,8 @@
                             "id" => $findEmail["id"],
                             "nom" => $findEmail["nom"],
                             "email" => $email,
-                            "mot_de_passe" => $mot_de_passe,
-                            "role" => "membre",
-                            "statut" => "actif",
+                            "role" => $findEmail["role"],
+                            "statut" => $findEmail["statut"],
                             "date_inscription" => $findEmail["date_inscription"]
                         ];
 
@@ -50,7 +49,15 @@
 
                     }
 
-                    header("Location: index.php");
+                    if ($_SESSION["utilisateur"]["role"] === "admin") {
+
+                        header("Location: /admin/dashboard.php");
+
+                    } else {
+
+                        header("Location: index.php");
+
+                    }
 
                     exit();
 
