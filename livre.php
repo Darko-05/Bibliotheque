@@ -18,13 +18,19 @@
 
     }
 
+?>
+
+<link rel="stylesheet" href="/public/style.css">
+
+<?php
+
     if (isset($_SESSION["erreur"])) {
 
         echo "<div style='position: absolute !important; left: 50% !important; transform: translateX(-50%) !important; top: 35px !important; max-width: 550px !important; width: 90% !important; box-sizing: border-box !important;'>
-                <div class='border-2 border-black bg-[#FF6B6B] p-4 font-bold uppercase text-sm tracking-tight shadow-[4px_4px_0_0_rgba(0,0,0,1)]'>
-                    {$_SESSION['erreur']}
-                </div>
-            </div>";
+                    <div class='border-2 border-black bg-[#FF6B6B] p-4 font-bold uppercase text-sm tracking-tight shadow-[4px_4px_0_0_rgba(0,0,0,1)]'>
+                        {$_SESSION['erreur']}
+                    </div>
+                </div>";
 
         unset($_SESSION["erreur"]);
 
@@ -32,9 +38,8 @@
 
 ?>
 
-<?php if (isset($_GET["id"])) : ?>
 
-    <link rel="stylesheet" href="/public/style.css">
+<?php if (isset($_GET["id"])) : ?>
 
     <?php require_once "includes/header.php"; ?>
 
@@ -112,8 +117,6 @@
     </main>
 
 <?php else : ?>
-
-    <link rel="stylesheet" href="/public/style.css">
 
     <div class="max-w-md mx-auto my-4 bg-white border-2 border-black p-4 flex items-center gap-3 shadow-[4px_4px_0_0_rgba(0,0,0,1)] rounded-md font-mono text-black">
         <span class="bg-black text-white px-2 py-0.5 font-bold rounded-sm">X</span>

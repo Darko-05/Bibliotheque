@@ -65,7 +65,7 @@
                 ":categorie_id" => $donnees["categorie_id"],
                 ":resume" => $donnees["resume"],
                 ":couverture" => $donnees["couverture"],
-                "exemplaires_total" => $donnees["exemplaires_total"],
+                ":exemplaires_total" => $donnees["exemplaires_total"],
                 ":exemplaires_disponibles" => $donnees["exemplaires_disponibles"],
                 ":date_ajout" => $donnees["date_ajout"]
             ]);
@@ -75,18 +75,17 @@
 
         public function update(int $id, array $donnees):bool
         {
-            $stmt = $this->pdo->prepare("UPDATE livres SET titre = :titre, auteur = :auteur, categorie_id = :categorie_id, resume = :resume, :exemplaire_total = :exemplaire_total, exemplaires_disponibles = :exemplaires_disponibles WHERE id = :id;");
-            $stmt->execute([
+            $stmt = $this->pdo->prepare("UPDATE livres SET titre = :titre, auteur = :auteur, categorie_id = :categorie_id, resume = :resume, couverture = :couverture, exemplaires_total = :exemplaires_total, exemplaires_disponibles = :exemplaires_disponibles WHERE id = :id;");
+            return $stmt->execute([
                 ":titre" => $donnees["titre"],
                 ":auteur" => $donnees["auteur"],
                 ":categorie_id" => $donnees["categorie_id"],
                 ":resume" => $donnees["resume"],
-                ":exemplaire_total" => $donnees["exemplaire_total"],
+                ":couverture" => $donnees["couverture"],
+                ":exemplaires_total" => $donnees["exemplaires_total"],
                 ":exemplaires_disponibles" => $donnees["exemplaires_disponibles"],
                 ":id" => $id
             ]);
-
-            return $stmt->rowCount() > 0;
         }
 
         public function delete(int $id):bool

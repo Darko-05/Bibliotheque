@@ -7,7 +7,7 @@
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-        if (isset($_POST["nom"], $_POST["email"], $_POST["mot_de_passe"]) && filter_var($_POST["email"])) {
+        if (isset($_POST["nom"], $_POST["email"], $_POST["mot_de_passe"]) && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
 
             $nom = trim($_POST["nom"]);
             $email = trim($_POST["email"]);
@@ -37,48 +37,26 @@
                 $newID = $membreRepository->create($donnees);
 
                 if ($newID > 0) {
-
-                    $hash = password_hash($mot_de_passe, PASSWORD_DEFAULT);
-
                     $_SESSION["utilisateur"] = [
+                        "id" => $newID,
                         "nom" => $nom,
                         "email" => $email,
-                        "mot_de_passe" => $hash,
                         "role" => "membre",
                         "statut" => "actif",
                         "date_inscription" => $dateInscription
                     ];
 
-                    echo "<div style='position: absolute !important; left: 50% !important; transform: translateX(-50%) !important; top: 35px !important; max-width: 550px !important; width: 90% !important; box-sizing: border-box !important;'>
-                        <div class='border-2 border-black bg-[#A3E635] p-4 font-bold uppercase text-sm tracking-tight shadow-[4px_4px_0_0_rgba(0,0,0,1)]'>
-                            🎉 Inscription réussie !
-                        </div>
-                    </div>";
-
+                    $_SESSION['succes'] = "Inscription réussie !";
                     header("Location: connexion.php");
-
                     exit();
-
                 }
 
             } else {
-
-                echo "<div style='position: absolute !important; left: 50% !important; transform: translateX(-50%) !important; top: 35px !important; max-width: 550px !important; width: 90% !important; box-sizing: border-box !important;'>
-                    <div class='border-2 border-black bg-[#FF6B6B] p-4 font-bold uppercase text-sm tracking-tight shadow-[4px_4px_0_0_rgba(0,0,0,1)]'>
-                        ⚠️ Un utilisateur existe déjà avec cet email.
-                    </div>
-                </div>";
-
+                $_SESSION["erreur"] = "⚠️ Un utilisateur existe déjà avec cet email";
             }
 
         } else {
-
-            echo "<div style='position: absolute !important; left: 50% !important; transform: translateX(-50%) !important; top: 35px !important; max-width: 550px !important; width: 90% !important; box-sizing: border-box !important;'>
-                <div class='border-2 border-black bg-[#FF6B6B] p-4 font-bold uppercase text-sm tracking-tight shadow-[4px_4px_0_0_rgba(0,0,0,1)]'>
-                   ⚠️ Tous les champs sont obligatoires.
-                </div>
-            </div>";
-
+           $_SESSION["erreur"] = "⚠️ Tous les champs sont obligatoires.";
         }
 
     }
@@ -86,6 +64,18 @@
 ?>
 
 <link rel="stylesheet" href="/public/style.css">
+
+<?php
+
+    if (!empty($message_erreur)) {
+        echo "<div style='position: absolute !important; left: 50% !important; transform: translateX(-50%) !important; top: 35px !important; max-width: 550px !important; width: 90% !important; box-sizing: border-box !important;'>
+            <div class='border-2 border-black bg-[#FF6B6B] p-4 font-bold uppercase text-sm tracking-tight shadow-[4px_4px_0_0_rgba(0,0,0,1)]'>
+                " . $message_erreur . "
+            </div>
+        </div>";
+    }
+
+?>
 
 <section class="bg-white border-2 border-black p-6 md:p-8 rounded-md shadow-[8px_8px_0_0_rgba(0,0,0,1)] select-none"
          style="position: absolute !important; left: 50% !important; transform: translateX(-50%) !important; top: 120px !important; max-width: 550px !important; width: 90% !important; box-sizing: border-box !important;">

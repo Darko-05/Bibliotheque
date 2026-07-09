@@ -62,44 +62,46 @@
                     exit();
 
                 } else {
-
-                    echo "<div style='position: absolute !important; left: 50% !important; transform: translateX(-50%) !important; top: 35px !important; max-width: 550px !important; width: 90% !important; box-sizing: border-box !important;'>
-                        <div class='border-2 border-black bg-[#FF6B6B] p-4 font-bold uppercase text-sm tracking-tight shadow-[4px_4px_0_0_rgba(0,0,0,1)]'>
-                            ⚠️ Mot de passe incorrect.
-                        </div>
-                    </div>";
-
+                    $_SESSION["erreur"] = "⚠️ Mot de passe incorrect.";
                 }
 
             } else {
-
-                echo "<div style='position: absolute !important; left: 50% !important; transform: translateX(-50%) !important; top: 35px !important; max-width: 550px !important; width: 90% !important; box-sizing: border-box !important;'>
-                    <div class='border-2 border-black bg-[#FF6B6B] p-4 font-bold uppercase text-sm tracking-tight shadow-[4px_4px_0_0_rgba(0,0,0,1)]'>
-                        ⚠️ Aucun compte associée a cet email ou compte inactif.
-                    </div>
-                </div>";
-
+                $_SESSION["erreur"] ="⚠️ Aucun compte associée a cet email ou compte inactif.";
             }
 
         }
 
     }
 
+?>
+
+<link rel="stylesheet" href="/public/style.css">
+
+<?php
+
+    if (isset($_SESSION["succes"])) {
+
+        echo "<div style='position: absolute !important; left: 50% !important; transform: translateX(-50%) !important; top: 35px !important; max-width: 550px !important; width: 90% !important; box-sizing: border-box !important;'>
+            <div class='border-2 border-black bg-[#A3E635] p-4 font-bold uppercase text-sm tracking-tight shadow-[4px_4px_0_0_rgba(0,0,0,1)]'>
+                " . $_SESSION['succes'] . "
+            </div>
+        </div>";
+
+        unset($_SESSION["succes"]);
+    }
+
     if (isset($_SESSION["erreur"])) {
 
         echo "<div style='position: absolute !important; left: 50% !important; transform: translateX(-50%) !important; top: 35px !important; max-width: 550px !important; width: 90% !important; box-sizing: border-box !important;'>
             <div class='border-2 border-black bg-[#FF6B6B] p-4 font-bold uppercase text-sm tracking-tight shadow-[4px_4px_0_0_rgba(0,0,0,1)]'>
-                {$_SESSION['erreur']}
+                " . $_SESSION['erreur'] . "
             </div>
         </div>";
 
         unset($_SESSION["erreur"]);
-
     }
 
 ?>
-
-<link rel="stylesheet" href="/public/style.css">
 
 <div style="position: absolute !important; left: 50% !important; transform: translateX(-50%) !important; top: 120px !important; max-width: 550px !important; width: 90% !important; box-sizing: border-box !important;">
     <section class="bg-white border-2 border-black p-6 md:p-8 rounded-md shadow-[8px_8px_0_0_rgba(0,0,0,1)] select-none">

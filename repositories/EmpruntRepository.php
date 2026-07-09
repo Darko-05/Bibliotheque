@@ -162,6 +162,25 @@
             return (int) $stmt->fetchColumn();
         }
 
+        public function estEmprunte(int $livreId):bool
+        {
+            $stmt = $this->pdo->prepare("SELECT * FROM emprunts WHERE livre_id = :livre_id AND statut = :statut;");
+            $stmt->execute([
+                ":livre_id" => $livreId,
+                ":statut" => "en_cours"
+            ]);
+
+            return (int) $stmt->fetchColumn() > 0;
+        }
+
+        public function countEnCoursForLivre(int $livreId):int
+        {
+            $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM emprunts WHERE livre_id = :livre_id;");
+            $stmt->execute([":livre_id" => $livreId]);
+
+            return (int) $stmt->fetchColumn();
+        }
+
         public function marquerRetourne(int $id):bool
         {
             $stmt = $this->pdo->prepare("UPDATE emprunts SET date_retour_effective = :date_retour_effective, statut = :statut WHERE id = :id;");
