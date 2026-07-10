@@ -50,7 +50,7 @@
     <div class="space-y-10">
         <!-- Brand / Logo -->
         <div class="border-4 border-black bg-[#A3E635] p-4 shadow-[4px_4px_0_0_#000] transform -rotate-1">
-            <span class="block text-xl font-black uppercase tracking-tight">📚 BIBLIO.ZIP</span>
+            <span class="block text-xl font-black uppercase tracking-tight"> BIBLIO.ZIP</span>
             <span class="block text-[10px] font-bold tracking-widest text-black/60 uppercase mt-0.5">Espace Administrateur</span>
         </div>
 
