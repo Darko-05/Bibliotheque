@@ -47,7 +47,7 @@ Le projet suit une architecture orientée objet avec :
 ## Installation
 
 ```bash
-git clone <url-du-repo>
+git clone (https://github.com/Darko-05/Bibliotheque.git)
 cd bibliotheque
 composer install
 ```
