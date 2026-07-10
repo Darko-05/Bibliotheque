@@ -107,7 +107,6 @@
 
 <div class="max-w-xl mx-auto my-10 px-4">
 
-    <!-- 1. GESTION DES MESSAGES (Insérés dans le flux normal du container) -->
     <?php if (isset($_SESSION["succes"])) : ?>
         <div class="mb-6 border-4 border-black bg-[#A3E635] p-4 font-black uppercase text-sm tracking-tight shadow-[6px_6px_0_0_rgba(0,0,0,1)]">
             <?= $_SESSION["succes"] ?>
@@ -128,7 +127,7 @@
     <div class="mb-6 flex justify-start">
         <a href="dashboard.php"
            class="inline-block border-2 border-black bg-white text-xs font-black uppercase tracking-wide px-4 py-2.5 shadow-[4px_4px_0_0_#000] transition-all hover:-translate-x-px hover:-translate-y-px hover:shadow-[5px_5px_0_0_#000]">
-            ⬅️ Tableau de bord
+            Tableau de bord
         </a>
     </div>
 

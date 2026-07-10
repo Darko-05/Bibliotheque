@@ -28,6 +28,16 @@
             return $this->pdo->lastInsertId();
         }
 
+        public function findById(int $id):array|null
+        {
+            $stmt = $this->pdo->prepare("SELECT * FROM emprunts WHERE id = :id;");
+            $stmt->execute([":id" => $id]);
+
+            $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $resultat === false ? null : $resultat;
+        }
+
         public function findEnCoursByMembre(int $membreId):array
         {
             $stmt = $this->pdo->prepare("SELECT * FROM emprunts WHERE membre_id = :membre_id AND statut = :statut;");
@@ -37,6 +47,14 @@
             ]);
 
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function findEmpruntsEnCours():array
+        {
+            $stmt = $this->pdo->prepare("SELECT * FROM emprunts WHERE statut = :statut;");
+            $stmt->execute([":statut" => "en_cours"]);
+
+            return  $stmt->fetchAll();
         }
 
         public function countEnCoursByMembre(int $membreId):int
@@ -154,6 +172,17 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        public function countEmpruntsEnEncoursByMembre(int $membreId):int
+        {
+            $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM emprunts WHERE membre_id = :membre_id AND statut = :statut;");
+            $stmt->execute([
+                ":membre_id" => $membreId,
+                ":statut" => "en_cours"
+            ]);
+
+            return (int) $stmt->fetchColumn();
+        }
+
         public function countEmpruntsEnRetard():int
         {
             $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM emprunts WHERE statut = :statut;");
@@ -191,5 +220,15 @@
             ]);
 
             return $stmt->rowCount() > 0;
+        }
+
+        public function updateRetour(int $id, string $date, string $statut):bool
+        {
+            $stmt = $this->pdo->prepare("UPDATE emprunts SET date_retour_effective = :date_retour_effective, statut = :statut WHERE id = :id;");
+            return $stmt->execute([
+                ":date_retour_effective" => $date,
+                ":statut" => $statut,
+                ":id" => $id
+            ]);
         }
     }
