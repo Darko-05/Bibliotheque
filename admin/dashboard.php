@@ -57,17 +57,17 @@
         <!-- Liens de Navigation Style Onglets Découpés -->
         <nav class="space-y-2">
             <a href="livres.php" class="flex items-center gap-3 px-4 py-3 border-2 border-black bg-white font-extrabold text-sm uppercase tracking-tight shadow-[2px_2px_0_0_#000] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_#000]">
-                <span>📚</span> Gérer les livres
+                 Gérer les livres
             </a>
             <a href="categories.php" class="flex items-center gap-3 px-4 py-3 border-2 border-black bg-[#A3E635] font-extrabold text-sm uppercase tracking-tight shadow-[4px_4px_0_0_#000] -translate-x-0.5 -translate-y-0.5">
-                <span>🗂️</span> Gérer les catégories
+                 Gérer les catégories
             </a>
             <a href="membres.php?" class="flex items-center gap-3 px-4 py-3 border-2 border-black bg-white
             font-extrabold text-sm uppercase tracking-tight shadow-[2px_2px_0_0_#000] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_#000]">
-                <span>👥</span> Gérer les membres
+                 Gérer les membres
             </a>
             <a href="emprunts.php" class="flex items-center gap-3 px-4 py-3 border-2 border-black bg-white font-extrabold text-sm uppercase tracking-tight shadow-[2px_2px_0_0_#000] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_#000]">
-                <span>🔄</span> Gérer les emprunts
+                 Gérer les emprunts
             </a>
         </nav>
     </div>
